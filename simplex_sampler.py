@@ -19,6 +19,25 @@ def uniform_sampler(dim, num):
     
     return weights
 
+def ws_transform(weight):
+    
+    ws_weight = np.zeros(weight.shape, np.float)
+    
+    num = weight.shape[0]
+    dim = weight.shape[1]
+    
+    for i in range(num):
+        w = np.zeros(dim)
+        w_t = 0.0
+        for j in range(dim):
+            w[j] = 1.0 / weight[i,j]
+            w_t += w[j]
+        for j in range(dim):
+            ws_weight[i,j] = w[j] / w_t
+    
+    return ws_weight
+        
+
 def sort_interval_sampler(dim, num):
     weights = np.zeros((num,dim), np.float)
     for i in range(num):
